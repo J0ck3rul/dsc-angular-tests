@@ -26,3 +26,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Next task
+
+1. Separarea logicii
+
+  componenta de pagina -> un folder pages
+  componentele de "ajutor" -> un folder "components"
+
+2. barrel files -> index.ts
+3. calluri catre api in services
+  services trebuie sa stea in un folder "servies"
+
+4. fiecare isi muta codul in un modul propriu
+5. lazy load pe modul
+6. prettier
+7. formulare cu reactive forms
+  reactive forms pe google, primul rezultat este documentatia
