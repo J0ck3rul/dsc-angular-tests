@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvramComponent } from './avram.component';
+import { ListMComponent } from './list-m.component';
 
-describe('AvramComponent', () => {
-  let component: AvramComponent;
-  let fixture: ComponentFixture<AvramComponent>;
+describe('ListMComponent', () => {
+  let component: ListMComponent;
+  let fixture: ComponentFixture<ListMComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvramComponent ]
+      declarations: [ ListMComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvramComponent);
+    fixture = TestBed.createComponent(ListMComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
