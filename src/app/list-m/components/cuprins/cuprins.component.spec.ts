@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvramComponent } from './avram.component';
+import { CuprinsComponent } from './cuprins.component';
 
-describe('AvramComponent', () => {
-  let component: AvramComponent;
-  let fixture: ComponentFixture<AvramComponent>;
+describe('CuprinsComponent', () => {
+  let component: CuprinsComponent;
+  let fixture: ComponentFixture<CuprinsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvramComponent ]
+      declarations: [ CuprinsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvramComponent);
+    fixture = TestBed.createComponent(CuprinsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

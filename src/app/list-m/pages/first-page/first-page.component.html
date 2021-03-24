@@ -1,0 +1,6 @@
+<div class="container">
+    <app-cuprins></app-cuprins>
+    <app-form id="form" (onFormSubmited)="addToList($event)"></app-form>
+    <app-list id="list1" [title]="list1Title" [users]="usersList1"></app-list>
+    <app-list id="list2" [title]="list2Title" [users]="usersList2"></app-list>
+</div>
