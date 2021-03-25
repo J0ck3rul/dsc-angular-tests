@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
-import { IUser } from '../list-m/pages/first-page/first-page.component';
 import { HttpClient } from '@angular/common/http';
+import { IUser } from '../pages/first-page/first-page.component';
 
 @Injectable({
   providedIn: 'root'
