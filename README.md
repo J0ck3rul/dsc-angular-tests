@@ -28,17 +28,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Next task
 
-1. Separarea logicii
-
-  componenta de pagina -> un folder pages
-  componentele de "ajutor" -> un folder "components"
-
-2. barrel files -> index.ts
-3. calluri catre api in services
-  services trebuie sa stea in un folder "servies"
-
-4. fiecare isi muta codul in un modul propriu
-5. lazy load pe modul
-6. prettier
-7. formulare cu reactive forms
-  reactive forms pe google, primul rezultat este documentatia
+1. Validari pe formular, pe fiecare camp in parte
+2. butonul de add trebuie sa fie activ cand fiecare camp in parte este valid
+3. fiecare item din lista sa aiba un buton de edit si unul de delete
+4. butonul de delete sa stearga din lista
+5. butonul de edit sa populeze formularul si sa poti edita campul
+6. daca nu s-a adaugat nimic pe formular dupa ce s-a dat click pe edit, butonul de "update" este disabled. El devine enabled cand incepe sa se modifice formularul
