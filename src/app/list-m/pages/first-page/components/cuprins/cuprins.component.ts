@@ -15,7 +15,6 @@ export class CuprinsComponent implements OnInit {
 
   scrollClicked(pageSection: string): void {
     let element = document.getElementById(pageSection);
-    console.log(element);
     element?.scrollIntoView({ behavior: "smooth" });
   }
 

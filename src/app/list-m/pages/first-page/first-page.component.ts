@@ -14,12 +14,14 @@ export class FirstPageComponent implements OnInit {
 
   user: IUser = { name: "", username: "", email: "" };
   editedUser = this.user;
+  isEditing = false;
+  editedItemIndex = 0;
 
   usersList1: Array<IUser> = [];
   usersList2: Array<IUser> = [];
 
-  list1Title = "List 1";
-  list2Title = "List 2";
+  list1Title = "List 1 (editable)";
+  list2Title = "List 2 (not editable)";
 
   constructor(private userService: UserService) {
     this.getUserList2();
@@ -39,7 +41,9 @@ export class FirstPageComponent implements OnInit {
   }
 
   addToList(userForm: IUser): void {
-    this.usersList1.push(Object.assign({}, userForm));
+    this.isEditing ? this.usersList1.splice(this.editedItemIndex, 0, userForm) :
+      this.usersList1.push(Object.assign({}, userForm));
+    this.isEditing = false;
     this.onClear();
   }
 
@@ -51,15 +55,15 @@ export class FirstPageComponent implements OnInit {
 
   scrollTo(pageSection: string): void {
     let element = document.getElementById(pageSection);
-    console.log(element);
     if (element)
       element.scrollIntoView({ behavior: "smooth" });
   }
 
   editItem(user: IUser): void {
-    let userIndex = this.usersList1.indexOf(user);
-    this.usersList1.splice(userIndex, 1);
+    this.editedItemIndex = this.usersList1.indexOf(user);
+    this.usersList1.splice(this.editedItemIndex, 1);
     this.editedUser = user;
+    this.isEditing = true;
   }
 
   deleteItem(user: IUser): void {

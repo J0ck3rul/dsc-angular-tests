@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
 
   @Input() users = [];
   @Input() isEditable = false;
+  @Input() isEditing = false;
   @Input() title = "";
 
   @Output() onEditUser = new EventEmitter<IUser>();
