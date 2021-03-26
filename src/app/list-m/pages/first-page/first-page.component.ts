@@ -13,7 +13,7 @@ export interface IUser {
 export class FirstPageComponent implements OnInit {
 
   user: IUser = { name: "", username: "", email: "" };
-
+  editedUser = this.user;
 
   usersList1: Array<IUser> = [];
   usersList2: Array<IUser> = [];
@@ -54,6 +54,17 @@ export class FirstPageComponent implements OnInit {
     console.log(element);
     if (element)
       element.scrollIntoView({ behavior: "smooth" });
+  }
+
+  editItem(user: IUser): void {
+    let userIndex = this.usersList1.indexOf(user);
+    this.usersList1.splice(userIndex, 1);
+    this.editedUser = user;
+  }
+
+  deleteItem(user: IUser): void {
+    let userIndex = this.usersList1.indexOf(user);
+    this.usersList1.splice(userIndex, 1);
   }
 
 }

@@ -1,10 +1,16 @@
 <div class="h3 text-center">Form</div>
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label>Name: </label>
-    <input type=" text" formControlName="name">
-    <label>Username: </label>
-    <input type="text" formControlName="username">
-    <label>Email: </label>
-    <input type="text" formControlName="email">
-    <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary mt-2">Add</button>
+<form [formGroup]="userForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
+    <mat-form-field class="name">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="username">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="username" formControlName="username">
+    </mat-form-field>
+    <mat-form-field class="email">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email" formControlName="email">
+    </mat-form-field>
+    <button mat-button [disabled]="!userForm.valid || userForm.pristine" class="btn btn-primary mt-2">Add</button>
 </form>

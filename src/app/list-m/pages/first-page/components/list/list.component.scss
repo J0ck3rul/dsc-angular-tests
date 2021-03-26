@@ -1,0 +1,17 @@
+.list-item-editable {
+  .editButtons {
+    display: none;
+  }
+}
+
+.list-item-editable:hover {
+  .editButtons {
+    display: block;
+  }
+}
+
+.list-item-not-editable {
+  .editButtons {
+    display: none;
+  }
+}
