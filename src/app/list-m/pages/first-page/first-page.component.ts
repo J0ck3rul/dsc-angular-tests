@@ -40,6 +40,12 @@ export class FirstPageComponent implements OnInit {
     })
   }
 
+  onFormSubmited(ceva: any) {
+    ceva.discardChanges ? this.addToList(this.editedUser) :
+      this.addToList(ceva.user);
+    this.editedUser = { name: "", username: "", email: "" };
+  }
+
   addToList(userForm: IUser): void {
     this.isEditing ? this.usersList1.splice(this.editedItemIndex, 0, userForm) :
       this.usersList1.push(Object.assign({}, userForm));

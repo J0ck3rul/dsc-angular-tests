@@ -1,7 +1,7 @@
 <div class="h3 text-center">Form</div>
 <form [formGroup]="userForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
 
-    <mat-form-field class="name pt-3">
+    <mat-form-field class=" name pt-3">
         <mat-label>Name</mat-label>
         <input matInput placeholder="name" formControlName="name" [errorStateMatcher]="matcher">
         <mat-error *ngIf="userForm.get('name')?.hasError('minlength') && !userForm.get('name')?.hasError('required')">
@@ -45,6 +45,7 @@
 
     <button mat-button [disabled]="!userForm.valid || userForm.pristine" class="btn btn-primary mt-2">{{isEditing?
         'Save':
-        'Add'}}</button>
-    <button mat-button *ngIf="isEditing" class="btn btn-primary mt-2">Cancel</button>
+        'Add'}}
+    </button>
+    <button mat-button *ngIf="isEditing" class="btn btn-primary mt-2" (click)="onCancel()">Cancel</button>
 </form>

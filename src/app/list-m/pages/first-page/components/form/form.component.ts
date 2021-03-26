@@ -17,10 +17,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class FormComponent implements OnInit, OnChanges {
   @Input() user: IUser = { name: '', username: '', email: '' };
   @Input() isEditing = false;
-  @Output() onFormSubmited = new EventEmitter<IUser>();
+  @Output() onFormSubmited = new EventEmitter<{}>();
 
 
   matcher = new MyErrorStateMatcher();
+  discardChanges = false;
 
   public userForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
@@ -40,10 +41,16 @@ export class FormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void { }
 
+  public onCancel() {
+    this.discardChanges = true;
+    this.userForm.reset();
+  }
+
   public onSubmit(formDirective: FormGroupDirective): void {
     let user: IUser = this.userForm.value;
-    this.onFormSubmited.emit(user);
+    this.onFormSubmited.emit({ user: user, discardChanges: this.discardChanges });
     this.userForm.reset();
     formDirective.resetForm();
+    this.discardChanges = false;
   }
 }
