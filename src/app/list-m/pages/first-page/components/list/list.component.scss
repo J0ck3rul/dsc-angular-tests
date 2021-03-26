@@ -1,17 +1,34 @@
-.list-item-editable {
-  .editButtons {
-    display: none;
+.list {
+  padding-top: 50px;
+  .list-item-editable {
+    .editButtons {
+      display: block;
+      opacity: 0;
+    }
   }
-}
-
-.list-item-editable:hover {
-  .editButtons {
-    display: block;
+  tr {
+    border: none;
+    td {
+      border: none;
+    }
   }
-}
 
-.list-item-not-editable {
-  .editButtons {
-    display: none;
+  .list-item-editable:hover {
+    .editButtons {
+      display: flex;
+      justify-content: right;
+      opacity: 1;
+    }
+  }
+
+  .list-item-not-editable {
+    .editButtons {
+      display: none;
+    }
+  }
+
+  table {
+    margin-top: 50px;
+    width: 100%;
   }
 }

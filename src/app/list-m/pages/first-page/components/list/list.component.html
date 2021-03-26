@@ -1,23 +1,32 @@
-<div class="pt-5" #list1>
+<div class="container list">
     <div class="h3">{{title}}</div>
-    <ol class="p-5">
-        <li *ngFor="let user of users">
-            <div class="row listItem"
+    <table class="table" [ngClass]="{'table-hover': isEditable,'table-striped': !isEditable}">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col" *ngIf="isEditable"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; let i = index"
                 [ngClass]="{'list-item-editable':isEditable && !isEditing, 'list-item-not-editable':!isEditable || isEditing}">
-                <div class="col">
-                    <p>Name: {{user.name}}</p>
-                    <p>Username: {{user.username}}</p>
-                    <p>Email: {{user.email}}</p>
-                </div>
-                <div class="col editButtons">
-                    <button mat-icon-button>
-                        <fa-icon [icon]="faPen" (click)="onEdit(user)"></fa-icon>
+                <td>{{i+1}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <div aria-colspan="0.5" class="col editButtons">
+                    <button mat-icon-button (click)="onEdit(user)">
+                        <fa-icon [icon]=" faPen"></fa-icon>
                     </button>
-                    <button mat-icon-button>
-                        <fa-icon [icon]=" faTrash" (click)="onDelete(user)"></fa-icon>
+                    <button mat-icon-button (click)=" onDelete(user)">
+                        <fa-icon [icon]=" faTrash"></fa-icon>
                     </button>
                 </div>
-            </div>
-        </li>
-    </ol>
+
+            </tr>
+        </tbody>
+    </table>
 </div>

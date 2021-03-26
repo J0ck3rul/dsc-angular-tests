@@ -17,7 +17,7 @@ export class FirstPageComponent implements OnInit {
   isEditing = false;
   editedItemIndex = 0;
 
-  usersList1: Array<IUser> = [];
+  usersList1: Array<IUser> = [{ 'name': 'test1', 'username': 'test1', 'email': 'test@test.com' }];
   usersList2: Array<IUser> = [];
 
   list1Title = "List 1 (editable)";

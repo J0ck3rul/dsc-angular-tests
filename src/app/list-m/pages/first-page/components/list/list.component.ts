@@ -28,7 +28,6 @@ export class ListComponent implements OnInit {
 
   onEdit(user: IUser): void {
     this.onEditUser.emit(user);
-
   }
 
   onDelete(user: IUser): void {
