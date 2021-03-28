@@ -1,28 +1,56 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { IUser } from '../../first-page.component';
+import { IUser } from './../../first-page.component';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
-  @Output() onFormSubmited = new EventEmitter<IUser>();
+export class FormComponent implements OnInit, OnChanges {
+  @Input() user: IUser = { name: '', username: '', email: '' };
+  @Input() isEditing = false;
+  @Output() onFormSubmited = new EventEmitter<{}>();
+
+
+  matcher = new MyErrorStateMatcher();
+  discardChanges = false;
 
   public userForm = new FormGroup({
-    name: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
+    name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["user"]) {
+      this.userForm.setValue(changes["user"].currentValue);
+      this.userForm.markAsPristine();
+    }
+  }
 
-  public onSubmit(): void {
-    let user: IUser = this.userForm.value;
-    this.onFormSubmited.emit(user);
+  ngOnInit(): void { }
+
+  public onCancel() {
+    this.discardChanges = true;
     this.userForm.reset();
+  }
+
+  public onSubmit(formDirective: FormGroupDirective): void {
+    let user: IUser = this.userForm.value;
+    this.onFormSubmited.emit({ user: user, discardChanges: this.discardChanges });
+    this.userForm.reset();
+    formDirective.resetForm();
+    this.discardChanges = false;
   }
 }

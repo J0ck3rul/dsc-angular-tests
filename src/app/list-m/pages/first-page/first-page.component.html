@@ -1,6 +1,9 @@
 <div class="container">
-    <app-cuprins></app-cuprins>
-    <app-form id="form" (onFormSubmited)="addToList($event)"></app-form>
-    <app-list id="list1" [title]="list1Title" [users]="usersList1"></app-list>
-    <app-list id="list2" [title]="list2Title" [users]="usersList2"></app-list>
+    <!-- <app-cuprins></app-cuprins> -->
+    <app-form id="form" [isEditing]="isEditing" [user]="editedUser" (onFormSubmited)="onFormSubmited($event)">
+    </app-form>
+    <app-list id="list1" (onEditUser)="editItem($event)" (onDeleteUser)="deleteItem($event)" [title]="list1Title"
+        [users]="usersList1" [isEditable]=true [isEditing]="isEditing"></app-list>
+    <app-list id="list2" (onEditUser)="editItem($event)" (onDeleteUser)="deleteItem($event)" [title]=" list2Title"
+        [users]="usersList2" [isEditable]=false></app-list>
 </div>
