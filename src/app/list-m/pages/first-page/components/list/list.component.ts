@@ -1,7 +1,7 @@
 import { DialogComponent } from './components/dialog/dialog.component';
 import { IUser } from './../../first-page.component';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -10,24 +10,24 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  faPen = faPen;
-  faTrash = faTrash;
+  penIcon = faPen;
+  deleteIcon = faTrash;
+  addIcon = faPlus;
 
-  @Input() users = [];
-  @Input() isEditable = false;
-  @Input() isEditing = false;
-  @Input() title = "";
+  users: IUser[] = [];
+  isEditable = true;
+  isEditing = false;
+  title = "";
 
-  @Output() onEditUser = new EventEmitter<IUser>();
-  @Output() onDeleteUser = new EventEmitter<IUser>();
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    this.users = JSON.parse(localStorage.getItem("list") || '[]');
+  }
 
   ngOnInit(): void {
   }
 
   onEdit(user: IUser): void {
-    this.onEditUser.emit(user);
+
   }
 
   onDelete(user: IUser): void {
@@ -38,8 +38,11 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result ?
-        this.onDeleteUser.emit(user) : null;
+      if (result) {
+        let userIndex = this.users.indexOf(user);
+        this.users.splice(userIndex, 1);
+        localStorage.setItem("list", JSON.stringify(this.users));
+      }
     });
 
   }

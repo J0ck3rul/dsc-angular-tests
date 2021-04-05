@@ -1,7 +1,9 @@
 import { IUser } from './../../first-page.component';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -14,14 +16,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, OnChanges {
-  @Input() user: IUser = { name: '', username: '', email: '' };
-  @Input() isEditing = false;
-  @Output() onFormSubmited = new EventEmitter<{}>();
+export class FormComponent implements OnInit {
+  isEditing = false;
+  dbIndex = 0;
+  sub: Subscription | undefined;
 
 
   matcher = new MyErrorStateMatcher();
-  discardChanges = false;
 
   public userForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
@@ -29,28 +30,51 @@ export class FormComponent implements OnInit, OnChanges {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor() {
+  constructor(private route: ActivatedRoute,
+    private router: Router) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["user"]) {
-      this.userForm.setValue(changes["user"].currentValue);
-      this.userForm.markAsPristine();
-    }
+  ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      let id = params['id'];
+      var listElements = JSON.parse(localStorage.getItem('list') || '[]');
+      listElements.forEach((element: { id: string; name: AbstractControl; username: AbstractControl; email: AbstractControl; }, i: number) => {
+
+
+        if (element['id'] == id) {
+          this.userForm.controls['name'].setValue(element['name']);
+          this.userForm.controls['username'].setValue(element['username']);
+          this.userForm.controls['email'].setValue(element['email']);
+          this.isEditing = true;
+          this.dbIndex = i;
+          return;
+        }
+      });
+    });
   }
 
-  ngOnInit(): void { }
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 
   public onCancel() {
-    this.discardChanges = true;
     this.userForm.reset();
+    this.router.navigate(['page/list']);
   }
 
   public onSubmit(formDirective: FormGroupDirective): void {
     let user: IUser = this.userForm.value;
-    this.onFormSubmited.emit({ user: user, discardChanges: this.discardChanges });
     this.userForm.reset();
     formDirective.resetForm();
-    this.discardChanges = false;
+    var listElements = JSON.parse(localStorage.getItem('list') || '[]');
+    var lastId = listElements.length ? listElements[listElements.length - 1]['id'] : 0;
+    lastId++;
+
+    if (this.isEditing)
+      listElements.splice(this.dbIndex, 1, { 'id': lastId, ...user });
+    else
+      listElements.push({ 'id': lastId, ...user });
+    localStorage.setItem('list', JSON.stringify(listElements));
+    this.router.navigate(['page/list']);
   }
 }
