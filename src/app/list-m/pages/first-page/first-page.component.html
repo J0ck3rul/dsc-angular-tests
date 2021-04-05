@@ -1,9 +1,3 @@
 <div class="container">
-    <!-- <app-cuprins></app-cuprins> -->
-    <app-form id="form" [isEditing]="isEditing" [user]="editedUser" (onFormSubmited)="onFormSubmited($event)">
-    </app-form>
-    <app-list id="list1" (onEditUser)="editItem($event)" (onDeleteUser)="deleteItem($event)" [title]="list1Title"
-        [users]="usersList1" [isEditable]=true [isEditing]="isEditing"></app-list>
-    <app-list id="list2" (onEditUser)="editItem($event)" (onDeleteUser)="deleteItem($event)" [title]=" list2Title"
-        [users]="usersList2" [isEditable]=false></app-list>
+    <router-outlet></router-outlet>
 </div>

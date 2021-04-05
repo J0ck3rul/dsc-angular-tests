@@ -1,28 +1,32 @@
 <div class="container list">
     <div class="h3">{{title}}</div>
-    <table class="table" [ngClass]="{'table-hover': isEditable,'table-striped': !isEditable}">
+    <div class="d-flex ms-auto">
+        <button mat-fab routerLink="../create">
+            <fa-icon [icon]="addIcon"></fa-icon>
+        </button>
+    </div>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
-                <th scope="col" *ngIf="isEditable && !isEditing"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users; let i = index"
-                [ngClass]="{'list-item-editable':isEditable && !isEditing, 'list-item-not-editable':!isEditable || isEditing}">
+            <tr *ngFor="let user of users; let i = index" class="list-item">
                 <td>{{i+1}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <div aria-colspan="0.5" class="col editButtons">
-                    <button mat-icon-button (click)="onEdit(user)">
-                        <fa-icon [icon]=" faPen"></fa-icon>
+                <div class="col editButtons">
+                    <button mat-icon-button [routerLink]="['../edit', user.id]">
+                        <fa-icon [icon]="penIcon"></fa-icon>
                     </button>
                     <button mat-icon-button (click)=" onDelete(user)">
-                        <fa-icon [icon]=" faTrash"></fa-icon>
+                        <fa-icon [icon]="deleteIcon"></fa-icon>
                     </button>
                 </div>
 

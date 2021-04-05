@@ -1,6 +1,6 @@
 .list {
   padding-top: 50px;
-  .list-item-editable {
+  .list-item {
     .editButtons {
       display: block;
       opacity: 0;
@@ -13,7 +13,7 @@
     }
   }
 
-  .list-item-editable:hover {
+  .list-item:hover {
     .editButtons {
       display: flex;
       justify-content: right;
@@ -21,14 +21,12 @@
     }
   }
 
-  .list-item-not-editable {
-    .editButtons {
-      display: none;
-    }
-  }
-
   table {
     margin-top: 50px;
     width: 100%;
   }
+}
+
+.d-flex {
+  justify-content: right;
 }

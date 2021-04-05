@@ -8,8 +8,7 @@ const routes: Routes = [
     redirectTo: 'first-page',
   },
   {
-    path: 'page1',
-    pathMatch: 'full',
+    path: 'page',
     loadChildren: () => import('./list-m/list-m.module').then(m => m.ListMModule)
   },
 ];
